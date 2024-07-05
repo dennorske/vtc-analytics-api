@@ -11,6 +11,7 @@ manager = AnalyticsManager()
 print(manager.get_driven_distance(30))  # Get driven distance for the VTC the last 30 days
 ```
 
-You will need to install `python-dotenv` and have a `.env` file located in the root of your project with `VTC_USERNAME` and `VTC_PASSWORD` set.
+You will need to install `python-dotenv` and have a `.env` file located in the root of your project with `VTC_USERNAME`, `COMPANY_NAME` and `VTC_PASSWORD` set.
+You can get `COMPANY_NAME` from the vtcanalytics url; `COMPANY_HERE.vtcanalytics.com`
 
-WIP.
+Work in progress.
