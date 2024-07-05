@@ -1,7 +1,5 @@
 import os
-import pprint
 import re
-import sys
 from typing import Optional
 
 import dotenv
@@ -37,7 +35,7 @@ class AnalyticsManager:
 
         # API specific:
         self.valid_time_selection = [30, 60, 365, "TODAY", "MTD", "QTD", "YTD"]
-        self.api_url = "https://alphahaulageltd.vtcanalytics.com/nova-api"
+        self.api_url = f"https://{os.getenv('COMPANY_NAME')}.vtcanalytics.com/nova-api"
 
     def __get_login_token(self) -> Optional[str]:
         """Get the login token from the login page."""
@@ -47,7 +45,9 @@ class AnalyticsManager:
         # The token comes from the value from _input field which is hidden
         # in the login page.
 
-        response = self.session.get("https://alphahaulageltd.vtcanalytics.com/login")
+        response = self.session.get(
+            f"https://{os.getenv('COMPANY_NAME')}.vtcanalytics.com/login"
+        )
 
         match = re.search(pattern, response.text)
         if match:
@@ -65,7 +65,6 @@ class AnalyticsManager:
         Since users need a linked Steam account, this needs to run on an
         existing user, aka no service accounts possible atm.
         """
-        # "Referer": "https://alphahaulageltd.vtcanalytics.com/login",
         # Get the vtctoken to use with API
 
         data = {
@@ -76,7 +75,7 @@ class AnalyticsManager:
         }
 
         response = self.session.post(
-            "https://alphahaulageltd.vtcanalytics.com/login",
+            f"https://{os.getenv('COMPANY_NAME')}.vtcanalytics.com/login",
             allow_redirects=True,
             data=data,
         )
